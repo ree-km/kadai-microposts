@@ -18,7 +18,6 @@ class MicropostsController extends Controller
                 'microposts' => $microposts,
             ];
         }
-
         return view('welcome', $data);
     }
 
@@ -27,22 +26,17 @@ class MicropostsController extends Controller
         $this->validate($request, [
             'content' => 'required|max:191',
         ]);
-
         $request->user()->microposts()->create([
             'content' => $request->content,
         ]);
-
         return back();
     }
-
     public function destroy($id)
     {
         $micropost = \App\Micropost::find($id);
-
         if (\Auth::id() === $micropost->user_id) {
             $micropost->delete();
         }
-
         return back();
     }
 
